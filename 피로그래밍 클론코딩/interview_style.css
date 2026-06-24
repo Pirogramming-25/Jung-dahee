@@ -1,0 +1,209 @@
+header {
+    background-color: #000;        
+    padding: 60px;                
+}
+
+.header-inner {
+    display: flex;             
+    justify-content: space-between;    
+    align-items: center;         
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+nav {
+    display: flex;   
+    justify-content: space-between;    
+    align-items: right;
+    gap: 20px;          
+}
+
+header nav a{
+    font-size: 20;    
+    color: rgb(255, 255, 255);  
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+    background-color: rgb(0, 0, 0);
+    padding: 0 40px;
+}
+
+body h1 {
+    font-size: 30px;    
+    color: rgb(255, 255, 255);  
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    padding: 20px 0px;              
+}
+
+.interview-content h2{
+    font-size: 20px; 
+    margin-bottom: 8px;
+    font-weight: 500;   
+    color: rgb(255, 255, 255);  
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.major,
+.double-major,
+.non-major {
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);  
+    font-size: 15px;
+    font-family: "Noto Sans KR", sans-serif;    
+}
+
+.major {
+    background-color: #1f769b;
+}
+
+.double-major {
+    background-color: #42986a;
+}
+
+.non-major {
+    background-color: #c04d36;
+}
+
+
+.interview-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.interview-card {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 5px;
+    border-radius: 16px;
+    background-color: #212121;
+}
+
+.message {
+    font-size: 15px;  
+    margin-bottom: 15px;
+    color: #bdbdbd;
+    line-height: 1.5;  
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0 15px;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    border-radius: 16px;
+}
+
+.interview-card:hover {
+    transform: translateY(-2px);   
+}
+
+.image-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    overflow: hidden; 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.interview-card:hover .image-box img {
+    transform: scale(1.10);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.interview-card {
+    position: relative;
+}
+
+.menu-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.menu-icon span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin-bottom: 5px;
+    background-color: #999;
+}
+
+.menu-icon span {
+    transition: transform 0.3s;
+}
+
+.interview-card:hover .menu-icon span:first-child {
+    transform: scaleX(0.5);
+    transform-origin: right;
+}
+
+.interview-card:hover .menu-icon span:last-child {
+    transform: scaleX(0.5);
+    transform-origin: left;
+}
+
+
+@media (max-width: 768px) {     /* 태블릿 기준 너비 */
+    
+    header {
+        padding: 30px 0;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .header-inner img {
+        width: 30px;
+    }
+
+    
+    .interview-box {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    header {
+        padding: 30px 0;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .header-inner img {
+        width: 30px;
+    }
+
+    body {
+        padding: 0 15px;
+    }
+
+    .interview-box {
+        grid-template-columns: 1fr;
+    }
+
+   
+
+}
