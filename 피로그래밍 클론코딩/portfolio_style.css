@@ -162,11 +162,6 @@ body h1 {
         width: 30px;
     }
 
-    
-    .portfolio-card {
-        grid-template-columns: 1fr;
-    }
-
     .project-image {
         width: 100%;
     }
