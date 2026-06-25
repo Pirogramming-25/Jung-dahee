@@ -1,0 +1,224 @@
+header {
+    background-color: #000;        
+    padding: 60px;                
+}
+
+.header-inner {
+    display: flex;             
+    justify-content: space-between;    
+    align-items: center;         
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+nav {
+    display: flex;   
+    justify-content: space-between;    
+    align-items: right;
+    gap: 20px;          
+}
+
+header nav a{
+    font-size: 20;    
+    color: rgb(255, 255, 255);  
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+    background-color: rgb(0, 0, 0);
+    padding: 0 40px;
+}
+
+body h1 {
+    font-size: 30px;    
+    color: rgb(255, 255, 255);  
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    padding: 20px 0px;              
+}
+
+.project-content h2{
+    font-size: 20px; 
+    margin-bottom: 8px;
+    font-weight: 500;   
+    color: rgb(255, 255, 255);  
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.project-content p{
+    font-size: 15px;  
+    margin-bottom: 24px;
+    color: #bdbdbd;
+    line-height: 1.5;  
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+
+.portfolio-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.portfolio-card {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    border-radius: 16px;
+    background-color: #303030;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-2px);   
+}
+
+.image-box {
+    width: 150px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: white;
+    overflow: hidden; 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portfolio-card:hover .image-box img {
+    transform: scale(1.15);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.members {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.members span {
+    padding: 3px 10px;
+    border-radius: 6px;
+    background-color: #929292;
+    color: #111;
+    font-size: 16px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.members .leader {
+    background-color: #199acd;
+    color: white;
+}
+
+.portfolio-card {
+    position: relative;
+}
+
+.menu-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+
+.menu-icon span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin-bottom: 5px;
+    background-color: #999;
+}
+
+.menu-icon span {
+    transition: transform 0.3s;
+}
+
+.portfolio-card:hover .menu-icon span:first-child {
+    transform: scaleX(0.5);
+    transform-origin: right;
+}
+
+.portfolio-card:hover .menu-icon span:last-child {
+    transform: scaleX(0.5);
+    transform-origin: left;
+}
+
+
+@media (max-width: 768px) {     /* 태블릿 기준 너비 */
+    
+    header {
+        padding: 30px 0;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .header-inner img {
+        width: 30px;
+    }
+
+    .project-image {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    header {
+        padding: 30px 0;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .header-inner img {
+        width: 30px;
+    }
+
+    body {
+        padding: 0 15px;
+    }
+
+    .portfolio-card {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 80px 25px 40px;
+        gap: 25px;
+    }
+
+    .image-box {
+        width: 100%;
+        max-width: 350px;
+        height: 200px;
+        margin: 0 auto;
+    }
+
+    .image-box img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+    }
+
+    .project-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .project-content h2,
+    .project-content p {
+        text-align: center;
+    }
+
+    .members {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
