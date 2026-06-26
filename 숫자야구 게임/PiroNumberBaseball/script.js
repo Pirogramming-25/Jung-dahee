@@ -6,7 +6,7 @@ const resultImg = document.getElementById("game-result-img");
 const game = {
     attempts_left: 9, // 남은 횟수
     answer: [], //정답
-    gameover: false, //게임 오버
+    gameover: false, // 게임 종료
     strike_count: 0, // 스트라이크 횟수 초기화
     ball_count: 0, // 볼 횟수 초기화
     out_count: 0 // 아웃 카운트 초기화
