@@ -1,0 +1,45 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}리뷰 리스트 | my Movie reviews{% endblock %}
+
+{% block content %}
+<div class="list-header">
+  <div class="sort-group">
+    <a href="{% url 'reviews:review_list' %}" class="btn-sort {% if not sort %}active{% endif %}">최신순</a>
+    <a href="?sort=title" class="btn-sort {% if sort == 'title' %}active{% endif %}">제목순</a>
+    <a href="?sort=rating" class="btn-sort {% if sort == 'rating' %}active{% endif %}">별점순</a>
+    <a href="?sort=running_time" class="btn-sort {% if sort == 'running_time' %}active{% endif %}">상영시간순</a>
+  </div>
+</div>
+
+{% if reviews %}
+<div class="card-grid">
+  {% for review in reviews %}
+  <div class="card">
+    <a href="{% url 'reviews:review_detail' review.pk %}">
+      <div class="card-body">
+        <h5 class="card-title">{{ review.title }}</h5>
+        <p class="release-year">
+          <span class="card-body-label">개봉년도</span> 
+          <span class="card-body-value">{{ review.release_year }}</span>
+        </p>
+        <p class="card-genre">
+          <span class="card-body-label">장르</span>
+          <span class="card-body-value">{{ review.get_genre_display }}</span>
+        </p>
+        <p class="rating-stars">
+          <span class="card-body-label">별점</span>
+          <span class="card-body-value">{{ review.rating }}</span>
+        </p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <p>아직 작성된 리뷰가 없습니다.</p>
+  <a href="{% url 'reviews:review_create' %}" class="btn-primary">첫 리뷰 작성하기</a>
+</div>
+{% endif %}
+{% endblock %}
