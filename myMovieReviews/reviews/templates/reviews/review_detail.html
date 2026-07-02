@@ -1,0 +1,47 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}{{ review.title }} | my Movie reviews{% endblock %}
+
+{% block content %}
+<div class="detail-top">
+  <h2 class="detail-title">{{ review.title }}</h2>
+  <div class="action-buttons">
+    <a href="{% url 'reviews:review_update' review.pk %}" class="btn-action">수정</a>
+    <form action="{% url 'reviews:review_delete' review.pk %}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+      {% csrf_token %}
+      <button type="submit" class="btn-action">삭제</button>
+    </form>
+  </div>
+</div>
+
+<div class="detail-info-box">
+  <p class="detail-info-row">
+  <span class="info-label">개봉년도</span>
+  <span class="info-value">{{ review.release_year }}</span>
+</p>
+  <p class="detail-info-row">
+    <span class="info-label">감독</span>
+    <span class="info-value">{{ review.director }}</span>
+  </p>
+  <p class="detail-info-row">
+    <span class="info-label">주연</span>
+    <span class="info-value">{{ review.main_actor }}</span>
+  </p>
+  <p class="detail-info-row">
+    <span class="info-label">장르</span>
+    <span class="info-value">{{ review.get_genre_display }}</span>
+  </p>
+  <p class="detail-info-row">
+    <span class="info-label">별점</span>
+    <span class="info-value">{{ review.rating }}</span>
+  </p>
+  <p class="detail-info-row">
+    <span class="info-label">러닝타임</span>
+    <span class="info-value">{{ review.running_time_display }}</span>
+  </p>
+</div>
+
+<div class="review-content-box">
+  <p class="review-content">{{ review.content }}</p>
+</div>
+{% endblock %}

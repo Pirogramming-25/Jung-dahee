@@ -1,0 +1,56 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}{% if is_update %}리뷰 수정{% else %}리뷰 작성{% endif %} | my Movie reviews{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+  <h2 class="form-heading">Movie review</h2>
+  <div class="form-divider">
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.errors }}
+
+      <div class="form-group">
+        <label>영화 제목</label>
+        {{ form.title }}
+      </div>
+      <div class="form-group">
+        <label>개봉 년도</label>
+        {{ form.release_year }}
+      </div>
+      <div class="form-group">
+        <label>장르</label>
+        {{ form.genre }}
+      </div>
+      <div class="form-group">
+        <label>별점</label>
+        {{ form.rating }}
+      </div>
+      <div class="form-group">
+        <label>러닝타임 (분)</label>
+        {{ form.running_time }}
+      </div>
+      <div class="form-group">
+        <label>리뷰 내용</label>
+        {{ form.content }}
+      </div>
+      <div class="form-group">
+        <label>감독</label>
+        {{ form.director }}
+      </div>
+      <div class="form-group">
+        <label>주연</label>
+        {{ form.main_actor }}
+      </div>
+     
+      <div class="form-buttons">
+        <button type="submit" class="btn-save">Save</button>
+        {% if is_update %}
+          <a href="{% url 'reviews:review_detail' review.pk %}" class="btn-secondary">취소</a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

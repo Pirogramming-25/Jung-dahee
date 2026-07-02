@@ -1,0 +1,337 @@
+/* 공통 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #151515;
+  color: #222;
+}
+
+/* 헤더 */
+.header {
+  padding: 20px 0;
+  background-color: #151515;
+  border-bottom: 1px solid #e72e2e;
+  margin-bottom: 60px;
+  position: relative;  /* ::after 기준점 */
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-brand {
+  font-size: 25px;
+  font-weight: 600;
+  color: #e3dfdf;
+}
+
+.brand-highlight {
+  color: #e72e2e;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.header-link {
+  display: inline-block;
+  font-size: 14px;
+  color: #e3dfdf;
+}
+
+.header-link:hover {
+  color: #e72e2e;
+}
+
+/* 컨테이너 */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+
+/* 리뷰 리스트 */
+.list-header {
+  margin-bottom: 24px;
+}
+
+.sort-group {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-sort {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-right: 4px;
+  border: 1px solid #e72e2e;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #e72e2e;
+  transition: all 0.15s ease;
+}
+
+.btn-sort:hover,
+.btn-sort.active {
+  background-color: #e72e2e;
+  border-color: #e72e2e;
+  font-weight: 600;
+  color: #151515;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  background-color: hsl(0, 1%, 17%);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card a {
+  display: block;
+  color: inherit;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.card-body-label{
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #e3dfdf
+}
+
+.release-year,
+.card-genre {
+  font-size: 13px;
+  color: #e3dfdf;
+  margin-bottom: 4px;
+}
+
+
+.rating-stars {
+  font-size: 13px;
+  color: #e3dfdf;
+  margin-bottom: 4px;
+}
+
+
+/* 빈 상태 */
+.empty-state {
+  text-align: center;
+  padding: 60px 0;
+  color: #e3dfdf;
+}
+
+.empty-state p {
+  margin-bottom: 16px;
+}
+
+
+
+/* 디테일 페이지 */
+.detail-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.detail-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #e3dfdf;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-action {
+  display: inline-block;
+  font-size: 14px;
+  border: 1px solid #e72e2e;
+  color: #e72e2e;
+  border-radius: 4px;
+  padding: 6px 12px;
+  background: none;
+  cursor: pointer;
+}
+
+.btn-action:hover {
+  background-color: #e72e2e;
+  color: #151515;
+  font-weight: 600;
+}
+
+.detail-info-box {
+  margin-bottom: 24px;
+  background-color: hsl(0, 1%, 17%);
+  padding: 16px 20px;
+  border-radius: 8px;
+}
+
+.detail-info-row {
+  font-size: 14px;
+  color: #e3dfdf;
+  margin-bottom: 8px;
+}
+
+.info-label {
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+
+.review-content-box {
+  background-color: hsl(0, 1%, 17%);
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.review-content {
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-line;
+  color: #e3dfdf;
+}
+
+/* 작성·수정 폼 */
+.form-wrapper {
+  max-width: 620px;
+  margin: 0 auto;
+  background-color: hsl(0, 1%, 17%);
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.form-heading {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e72e2e;
+  margin-bottom: 16px;
+}
+
+.form-heading span {
+  color: #e3dfdf;
+  font-style: normal;
+}
+
+.form-divider {
+  border: none;
+  margin-top: 40px;
+  margin-bottom: 28px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #e3dfdf;
+  min-width: 80px;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #e3dfdf;;
+}
+
+.form-group textarea {
+  height: 140px;
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* 버튼 */
+
+.btn-save {
+  padding: 8px 24px;
+  border: 1px solid #e72e2e;
+  color: #e72e2e;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-save:hover {
+  background-color: #e72e2e;
+  color: #151515;
+  font-weight: 600;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid #e72e2e;
+  color: #e72e2e;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background-color: #e72e2e;
+  color: #151515;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid #e72e2e;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #e72e2e;
+}
+
+.btn-secondary:hover {
+  background-color: #e72e2e;
+  color: #151515;
+  font-weight: 600;
+}
