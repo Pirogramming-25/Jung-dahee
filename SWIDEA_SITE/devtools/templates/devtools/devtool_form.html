@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_update %}개발툴 수정{% else %}개발툴 등록{% endif %} - 아이디어 노트{% endblock %}
+{% block content %}
+<div class="page-head page-head-form">
+  <div><h1>{% if is_update %}DevTool Detail Update{% else %}DevTool Register{% endif %}</h1></div>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+    {% endfor %}
+    <div class="action-row">
+      <button type="submit" class="btn btn-primary">{% if is_update %}저장{% else %}등록{% endif %}</button>
+      {% if is_update %}
+        <a href="{% url 'devtools:devtool_detail' devtool.pk %}" class="btn btn-outline">취소</a>
+      {% else %}
+        <a href="{% url 'devtools:devtool_list' %}" class="btn btn-outline">취소</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endblock %}

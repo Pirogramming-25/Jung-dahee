@@ -1,0 +1,58 @@
+{% load static %}
+{% if page_obj.object_list %}
+<div class="idea-grid">
+  {% for idea in page_obj %}
+    <div class="idea-card">
+      <div class="idea-thumb-wrap">
+        <a href="{% url 'idea_detail' idea.pk %}">
+          {% if idea.image %}
+            <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
+          {% else %}
+            <div class="idea-thumb-placeholder">💡</div>
+          {% endif %}
+        </a>
+        <button class="star-btn {% if idea.pk in starred_ids %}starred{% endif %}" data-idea-id="{{ idea.pk }}" title="찜하기">
+          {% if idea.pk in starred_ids %}★{% else %}☆{% endif %}
+        </button>
+      </div>
+      <div class="idea-card-body">
+        {% if idea.devtool %}
+          <span class="idea-devtool-tag">{{ idea.devtool.name }}</span>
+        {% endif %}
+        <h3 class="idea-title"><a href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</a></h3>
+        <div class="idea-meta">
+          <span class="interest-control">
+            <button type="button" class="interest-btn" data-idea-id="{{ idea.pk }}" data-delta="-1">−</button>
+            <span class="interest-value" data-idea-id="{{ idea.pk }}">{{ idea.interest }}</span>
+            <button type="button" class="interest-btn" data-idea-id="{{ idea.pk }}" data-delta="1">+</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="pagination" data-ajax-pagination>
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="ajax-page-link" data-page="{{ page_obj.previous_page_number }}">‹</a>
+  {% else %}
+    <span class="disabled">‹</span>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if num == page_obj.number %}
+      <span class="current">{{ num }}</span>
+    {% else %}
+      <a href="?page={{ num }}" class="ajax-page-link" data-page="{{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="ajax-page-link" data-page="{{ page_obj.next_page_number }}">›</a>
+  {% else %}
+    <span class="disabled">›</span>
+  {% endif %}
+</div>
+{% else %}
+  <div class="empty-state">아직 등록된 아이디어가 없습니다. 첫 아이디어를 등록해보세요! 🚀</div>
+{% endif %}

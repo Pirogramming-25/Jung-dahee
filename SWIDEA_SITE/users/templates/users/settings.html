@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}설정 - 아이디어 노트{% endblock %}
+{% block content %}
+<div class="page-head page-head-form">
+  <div>
+    <h1>설정</h1>
+    <p>닉네임을 등록하세요.</p>
+  </div>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+    {% endfor %}
+    <div class="action-row">
+      <button type="submit" class="btn btn-primary">저장</button>
+      <a href="{% url 'idea_list' %}" class="btn btn-outline">취소</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

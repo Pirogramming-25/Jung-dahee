@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}개발툴 목록 - 아이디어 노트{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Devtool list</h1>
+    <p>총 {{ devtools|length }}개의 개발툴</p>
+  </div>
+  <a href="{% url 'devtools:devtool_create' %}" class="btn btn-primary">+ 개발툴 등록</a>
+</div>
+
+{% if devtools %}
+  <ul class="devtool-list">
+    {% for dt in devtools %}
+      <li>
+        <div>
+          <a href="{% url 'devtools:devtool_detail' dt.pk %}" class="name">{{ dt.name }}</a>
+          <span class="kind-tag">{{ dt.get_kind_display }}</span>
+          <span class="devtool-list-detail">{{ dt.content|default:"등록된 설명이 없습니다." }}</span>
+        </div>
+        <span style="color:var(--ink-soft); font-size:0.84rem;">아이디어 {{ dt.ideas.count }}건</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="empty-state">등록된 개발툴이 없습니다.</div>
+{% endif %}
+{% endblock %}

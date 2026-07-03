@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ idea.title }} - 아이디어 노트{% endblock %}
+{% block content %}
+<div class="detail-title">
+    <h1>Idea detail</h1>
+</div>
+
+
+<div class="detail-card detail-card-idea">
+  {% if idea.image %}
+    <img src="{{ idea.image.url }}" alt="{{ idea.title }}" class="detail-image">
+  {% else %}
+    <div class="detail-image detail-image-placeholder">💡</div>
+  {% endif %}
+  <div class="detail-body">
+    <div class="detail-head">
+      <div>
+        <h1>{{ idea.title }}</h1>
+        <p style="color:var(--ink-soft); font-size:0.86rem; margin:0;">
+          등록일: {{ idea.created_at|date:"Y.m.d H:i" }}
+        </p>
+      </div>
+      <button class="star-btn {% if is_starred %}starred{% endif %}" data-idea-id="{{ idea.pk }}" style="position:static;">
+        {% if is_starred %}★{% else %}☆{% endif %}
+      </button>
+    </div>
+
+    <div class="detail-meta-row">
+      {% if idea.devtool %}
+        <span class="pill pill-accent"><a href="{% url 'devtools:devtool_detail' idea.devtool.pk %}">🛠 {{ idea.devtool.name }}</a></span>
+      {% endif %}
+      <span class="pill">
+        관심도
+        <span class="interest-control" style="display:inline-flex; margin-left:6px;">
+          <button type="button" class="interest-btn" data-idea-id="{{ idea.pk }}" data-delta="-1">−</button>
+          <span class="interest-value" data-idea-id="{{ idea.pk }}">{{ idea.interest }}</span>
+          <button type="button" class="interest-btn" data-idea-id="{{ idea.pk }}" data-delta="1">+</button>
+        </span>
+      </span>
+      </div>
+    <div class="detail-content">{{ idea.content }}</div>
+
+    <div class="action-row">
+      <a href="{% url 'idea_list' %}" class="btn btn-outline">목록</a>
+      <a href="{% url 'idea_update' idea.pk %}" class="btn btn-outline">수정</a>
+      <form action="{% url 'idea_delete' idea.pk %}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">삭제</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

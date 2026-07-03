@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}아이디어 노트{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="{% url 'idea_list' %}" class="brand">My <span class="brand-highlight">SW Idea</span> Manage</a>
+      <div class="nav-links">
+        <a href="{% url 'idea_list' %}" class="{% if request.resolver_match.url_name == 'idea_list' %}active{% endif %}">아이디어 관리</a>
+        <a href="{% url 'idea_create' %}" class="{% if request.resolver_match.url_name == 'idea_create' %}active{% endif %}">아이디어 등록</a>
+        <a href="{% url 'devtools:devtool_list' %}" class="{% if request.resolver_match.app_name == 'devtools' and request.resolver_match.url_name == 'devtool_list' %}active{% endif %}">개발툴 관리</a>
+        <a href="{% url 'devtools:devtool_create' %}" class="{% if request.resolver_match.url_name == 'devtool_create' %}active{% endif %}">개발툴 등록</a>
+        <a href="{% url 'users:settings' %}" class="{% if request.resolver_match.url_name == 'settings' %}active{% endif %}">⚙️ 설정</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>© 2026 아이디어 노트 — 나만의 아이디어 기록 사이트</footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
