@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}아이디어 목록 - 아이디어 노트{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>{% if nickname %}{{ nickname }}'s Idea List{% else %}Idea List{% endif %}</h1>
+    <p>총 <span id="idea-total-count">{{ page_obj.paginator.count }}</span>개의 아이디어</p>
+  </div>
+  <a href="{% url 'idea_create' %}" class="btn btn-primary">+ 아이디어 등록</a>
+</div>
+
+<form id="idea-filter-form" class="toolbar">
+  <input type="text" name="q" placeholder="제목으로 검색..." value="{{ q }}" autocomplete="off">
+  <select name="devtool">
+    <option value="">전체 개발툴</option>
+    {% for dt in devtools %}
+      <option value="{{ dt.pk }}" {% if devtool_id == dt.pk|stringformat:"s" %}selected{% endif %}>{{ dt.name }}</option>
+    {% endfor %}
+  </select>
+  <select name="sort">
+    <option value="latest" {% if sort == 'latest' %}selected{% endif %}>최신순</option>
+    <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>등록순</option>
+    <option value="title" {% if sort == 'title' %}selected{% endif %}>이름순</option>
+    <option value="star" {% if sort == 'star' %}selected{% endif %}>찜하기순</option>
+    <option value="interest" {% if sort == 'interest' %}selected{% endif %}>관심도순</option>
+  </select>
+</form>
+
+<div id="idea-grid-container">
+  {% include 'ideas/_idea_list_partial.html' %}
+</div>
+{% endblock %}

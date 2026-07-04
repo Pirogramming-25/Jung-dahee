@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{% if is_update %}아이디어 수정{% else %}아이디어 등록{% endif %} - 아이디어 노트{% endblock %}
+{% block content %}
+<div class="page-head page-head-form">
+  <div><h1>{% if is_update %}Idea Detail Update{% else %}Idea Register{% endif %}</h1></div>
+</div>
+
+<div class="form-card">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if is_update and idea.image %}
+      <div class="current-image">
+        <label>현재 이미지</label>
+        <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
+      </div>
+    {% endif %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text|safe }}</div>{% endif %}
+        {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="action-row">
+      <button type="submit" class="btn btn-primary">{% if is_update %}저장{% else %}등록{% endif %}</button>
+      {% if is_update %}
+        <a href="{% url 'idea_detail' idea.pk %}" class="btn btn-outline">취소</a>
+      {% else %}
+        <a href="{% url 'idea_list' %}" class="btn btn-outline">취소</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endblock %}
