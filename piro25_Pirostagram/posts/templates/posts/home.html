@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Pirostagram - 홈{% endblock %}
+{% block content %}
+<div class="top-row">
+    <div class="feed-col">
+        <div class="stories-bar">
+            <div class="story-item">
+                {% if my_story %}
+                    <div class="story-avatar-wrap">
+                        <a href="{% url 'stories:story_view' my_story.pk %}">
+                            {% if user.profile.image %}
+                                <img class="story-avatar my-story" src="{{ user.profile.image.url }}">
+                            {% else %}
+                                <div class="story-avatar my-story"></div>
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'stories:story_create' %}" class="story-add-btn" title="스토리 추가">+</a>
+                    </div>
+                    <span class="story-label">내 스토리</span>
+                {% else %}
+                    <a href="{% url 'stories:story_create' %}" class="story-avatar plus">+</a>
+                    <span class="story-label">내 스토리 +</span>
+                {% endif %}
+            </div>
+            {% for story in stories %}
+            <a href="{% url 'stories:story_view' story.pk %}" class="story-item">
+                {% if story.author.profile.image %}
+                    <img class="story-avatar" src="{{ story.author.profile.image.url }}">
+                {% else %}
+                    <div class="story-avatar"></div>
+                {% endif %}
+                <span class="story-label">{{ story.author.username }}</span>
+            </a>
+            {% endfor %}
+        </div>
+
+        <form method="get" class="sort-bar">
+            <select name="sort" onchange="this.form.submit()">
+                <option value="latest" {% if sort == 'latest' %}selected{% endif %}>최신순</option>
+                <option value="likes" {% if sort == 'likes' %}selected{% endif %}>좋아요순</option>
+                <option value="comments" {% if sort == 'comments' %}selected{% endif %}>댓글순</option>
+            </select>
+        </form>
+
+        {% for post in posts %}
+            {% include 'posts/_post_card.html' %}
+        {% empty %}
+            <p>팔로우한 유저의 게시글이 없습니다. 유저를 검색해서 팔로우 해보세요.</p>
+        {% endfor %}
+    </div>
+
+    <div class="side-col">
+        <div class="my-account">
+            <div class="my-account-info">
+                {% if user.profile.image %}
+                    <img class="avatar-sm" src="{{ user.profile.image.url }}">
+                {% else %}
+                    <div class="avatar-sm"></div>
+                {% endif %}
+                <span class="username">{{ user.username }}</span>
+            </div>
+            <a href="{% url 'accounts:profile_edit' %}" class="switch-link">전환</a>
+        </div>
+
+        <div class="suggestion-section">
+            <div class="suggestion-title">다른 사용자 추천</div>
+            <div class="suggestion-list">
+                {% for su in suggested_users %}
+                <div class="suggestion-row">
+                    <div class="suggestion-info">
+                        {% if su.profile.image %}
+                            <img class="avatar-sm" src="{{ su.profile.image.url }}">
+                        {% else %}
+                            <div class="avatar-sm"></div>
+                        {% endif %}
+                        <a href="{% url 'accounts:profile' su.username %}" class="username">{{ su.username }}</a>
+                    </div>
+                    <button type="button" class="follow-link follow-toggle-btn" data-username="{{ su.username }}">팔로우</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

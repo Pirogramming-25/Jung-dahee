@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pirostagram{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jomhuria&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h1 class="logo">Pirostagram</h1>
+        {% if user.is_authenticated %}
+        <nav>
+            <a href="{% url 'posts:home' %}" class="nav-item">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M12.5 17.5V10.8333C12.5 10.6123 12.4122 10.4004 12.2559 10.2441C12.0996 10.0878 11.8877 10 11.6667 10H8.33333C8.11232 10 7.90036 10.0878 7.74408 10.2441C7.5878 10.4004 7.5 10.6123 7.5 10.8333V17.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.5 8.33333C2.49994 8.09088 2.55278 7.85135 2.65482 7.63142C2.75687 7.4115 2.90566 7.21649 3.09083 7.05999L8.92417 2.05999C9.22499 1.80575 9.60613 1.66626 10 1.66626C10.3939 1.66626 10.775 1.80575 11.0758 2.05999L16.9092 7.05999C17.0943 7.21649 17.2431 7.4115 17.3452 7.63142C17.4472 7.85135 17.5001 8.09088 17.5 8.33333V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V8.33333Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span> 홈
+            </a>
+
+            <form action="{% url 'posts:post_search' %}" method="get" class="nav-search">
+                <label class="nav-item">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M17.5 17.5L13.8833 13.8834" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span> 게시글 검색</label>
+                <div class="search-row">
+                    <input type="text" name="q" placeholder="" value="{{ request.GET.q }}">
+                    <button type="submit" class="search-btn">검색</button>
+                </div>
+            </form>
+
+            <form action="{% url 'accounts:user_search' %}" method="get" class="nav-search">
+                <label class="nav-item">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M17.5 17.5L13.8833 13.8834" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span> 유저 검색</label>
+                <div class="search-row">
+                    <input type="text" name="q" placeholder="">
+                    <button type="submit" class="search-btn">검색</button>
+                </div>
+            </form>
+
+            <a href="{% url 'posts:post_create' %}" class="nav-item">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M15.8333 2.5H4.16667C3.24619 2.5 2.5 3.24619 2.5 4.16667V15.8333C2.5 16.7538 3.24619 17.5 4.16667 17.5H15.8333C16.7538 17.5 17.5 16.7538 17.5 15.8333V4.16667C17.5 3.24619 16.7538 2.5 15.8333 2.5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.66663 10H13.3333" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 6.66669V13.3334" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span> 게시글 만들기</a>
+            <a href="{% url 'accounts:profile' user.username %}" class="nav-item nav-profile-item">
+                {% if user.profile.image %}
+                    <img class="icon nav-profile-avatar" src="{{ user.profile.image.url }}" alt="{{ user.username }}">
+                {% else %}
+                    <span class="icon nav-profile-avatar nav-profile-avatar-empty"></span>
+                {% endif %}
+                프로필
+            </a>
+            <form action="{% url 'accounts:logout' %}" method="post" class="nav-search">
+                {% csrf_token %}
+                <button type="submit" class="nav-item logout-btn"> 로그아웃
+                </button>
+            </form>
+        </nav>
+        {% endif %}
+    </aside>
+
+    <main class="content">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</div>
+<script src="{% static 'js/main.js' %}?v={% now 'U' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

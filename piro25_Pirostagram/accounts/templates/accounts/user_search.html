@@ -1,0 +1,28 @@
+{% extends 'search_base.html' %}
+{% block title %}유저 검색{% endblock %}
+{% block content %}
+<h2 class="search-title">"{{ query }}"로 검색한 결과</h2>
+
+<div class="search-card-list">
+    {% for u in results %}
+    <div class="search-card">
+        {% if u.profile.image %}
+            <img class="search-card-avatar" src="{{ u.profile.image.url }}">
+        {% else %}
+            <div class="search-card-avatar"></div>
+        {% endif %}
+        <a href="{% url 'accounts:profile' u.username %}" class="search-card-info">
+            <span class="search-card-name">{{ u.username }}</span>
+            <span class="search-card-sub">{{ u.profile.bio|default:u.username }}</span>
+        </a>
+        <button type="button"
+                class="follow-toggle-btn {% if u.is_following %}following{% endif %}"
+                data-username="{{ u.username }}">
+            {% if u.is_following %}팔로잉{% else %}팔로우{% endif %}
+        </button>
+    </div>
+    {% empty %}
+        {% if query %}<p class="search-empty">검색 결과가 없습니다.</p>{% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

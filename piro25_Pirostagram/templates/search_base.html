@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pirostagram{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Jomhuria&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}">
+</head>
+<body class="search-body">
+<div class="search-page">
+    <div class="search-menu-wrap">
+        <button type="button" class="search-menu-btn" id="search-menu-btn">•••</button>
+        <div class="search-menu-dropdown hidden" id="search-menu-dropdown">
+            <a href="{% url 'posts:home' %}">홈</a>
+            <a href="{% url 'posts:post_search' %}">게시글 검색</a>
+            <a href="{% url 'accounts:user_search' %}">유저 검색</a>
+            <a href="{% url 'posts:post_create' %}">게시글 만들기</a>
+            <a href="{% url 'accounts:profile' user.username %}">프로필</a>
+            <form action="{% url 'accounts:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">로그아웃</button>
+            </form>
+        </div>
+    </div>
+ 
+    <h1 class="search-logo">Pirostagram</h1>
+ 
+    {% block content %}{% endblock %}
+ 
+    <a href="{% url 'posts:home' %}" class="back-home-link">홈으로 돌아가기</a>
+</div>
+<script src="{% static 'js/main.js' %}?v={% now 'U' %}"></script>
+</body>
+</html>

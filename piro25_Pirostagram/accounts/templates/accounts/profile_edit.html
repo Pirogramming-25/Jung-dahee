@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}프로필 편집{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h2>프로필 편집</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.image }}
+        {{ form.image.errors }}
+        {{ form.bio }}
+        {{ form.bio.errors }}
+        <button type="submit">저장</button>
+    </form>
+</div>
+{% endblock %}

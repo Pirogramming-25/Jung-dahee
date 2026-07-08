@@ -1,0 +1,41 @@
+ {% extends 'base.html' %}
+{% block title %}{{ profile_user.username }}{% endblock %}
+{% block content %}
+<div class="profile-page">
+    <div class="profile-header">
+        <div class="avatar-ring">
+            {% if profile_user.profile.image %}
+                <img class="avatar-lg" src="{{ profile_user.profile.image.url }}">
+            {% else %}
+                <div class="avatar-lg"></div>
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <h2>{{ profile_user.username }}</h2>
+            <div class="profile-stats">
+                <span>게시물 <b>{{ posts|length }}</b></span>
+                <span>팔로워 <b class="follower-count">{{ profile_user.followers.count }}</b></span>
+                <span>팔로잉 <b>{{ profile_user.following.count }}</b></span>
+            </div>
+            {% if profile_user.profile.bio %}<p>{{ profile_user.profile.bio }}</p>{% endif %}
+            <div class="profile-actions">
+                {% if is_me %}
+                    <a href="{% url 'accounts:profile_edit' %}" class="edit-profile-link">프로필 편집</a>
+                {% else %}
+                    <button type="button"
+                            class="btn {% if is_following %}btn-primary following{% endif %} follow-toggle-btn"
+                            data-username="{{ profile_user.username }}">
+                        {% if is_following %}팔로잉{% else %}팔로우{% endif %}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="post-grid">
+        {% for post in posts %}
+            <img src="{{ post.image.url }}">
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+<div class="post-card">
+    <div class="post-header">
+        <div class="user-info">
+            {% if post.author.profile.image %}
+                <img class="avatar-sm" src="{{ post.author.profile.image.url }}">
+            {% else %}
+                <div class="avatar-sm"></div>
+            {% endif %}
+            <a href="{% url 'accounts:profile' post.author.username %}">{{ post.author.username }}</a>
+        </div>
+        {% if post.author == request.user %}
+        <div>
+            <a href="{% url 'posts:post_edit' post.pk %}" class="btn">수정</a>
+            <form action="{% url 'posts:post_delete' post.pk %}" method="post" style="display:inline"
+                  onsubmit="return confirm('게시글을 삭제할까요?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div class="post-image">
+        <img src="{{ post.image.url }}" alt="post image">
+    </div>
+    <div class="post-actions">
+        <div class="action-item">
+            <button type="button" class="like-btn {% if post.is_liked %}liked{% endif %}" data-post-id="{{ post.pk }}">
+                <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+                    <path d="M1 6.51615C1.00002 5.40335 1.33759 4.31674 1.96813 3.39982C2.59867 2.4829 3.49252 1.77881 4.53161 1.38055C5.5707 0.982294 6.70616 0.908598 7.78801 1.1692C8.86987 1.4298 9.84722 2.01243 10.591 2.84015C10.6434 2.89617 10.7067 2.94082 10.7771 2.97135C10.8474 3.00188 10.9233 3.01764 11 3.01764C11.0767 3.01764 11.1526 3.00188 11.2229 2.97135C11.2933 2.94082 11.3566 2.89617 11.409 2.84015C12.1504 2.00705 13.128 1.41952 14.2116 1.15575C15.2952 0.891989 16.4335 0.9645 17.4749 1.36364C18.5163 1.76277 19.4114 2.46961 20.0411 3.39006C20.6708 4.3105 21.0053 5.40091 21 6.51615C21 8.80615 19.5 10.5162 18 12.0162L12.508 17.3292C12.3217 17.5432 12.0919 17.7151 11.834 17.8335C11.5762 17.9518 11.296 18.014 11.0123 18.0158C10.7285 18.0176 10.4476 17.959 10.1883 17.8439C9.92893 17.7288 9.69703 17.5598 9.508 17.3482L4 12.0162C2.5 10.5162 1 8.81615 1 6.51615Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <span class="like-count" data-post-id="{{ post.pk }}">{{ post.like_count }}</span>
+        </div>
+        <div class="action-item">
+            <button type="button" class="comment-toggle-btn" data-post-id="{{ post.pk }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M2.08569 16.5087C2.17147 16.119 2.13873 15.7126 1.99169 15.3417C0.96846 13.2186 0.727946 10.8024 1.31258 8.51933C1.89722 6.23624 3.26944 4.23299 5.18713 2.86303C7.10483 1.49308 9.44475 0.844449 11.7941 1.03159C14.1434 1.21873 16.3511 2.22962 18.0278 3.88589C19.7044 5.54216 20.7422 7.73738 20.958 10.0842C21.1738 12.4311 20.5538 14.7788 19.2074 16.7131C17.861 18.6473 15.8746 20.0439 13.5988 20.6564C11.3231 21.2689 8.90408 21.0579 6.76869 20.0607C6.41822 19.9276 6.03741 19.8958 5.66969 19.9687L2.25669 20.9667C2.09205 21.0104 1.91898 21.0113 1.75389 20.9693C1.5888 20.9274 1.43716 20.844 1.31336 20.727C1.18955 20.61 1.09769 20.4633 1.04647 20.3008C0.995248 20.1384 0.986375 19.9655 1.02069 19.7987L2.08569 16.5087Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <span class="comment-count" data-post-id="{{ post.pk }}">{{ post.comment_count }}</span>
+        </div>
+    </div>
+    <div class="post-desc"><span class="username">{{ post.author.username }}</span>{{ post.description }}</div>
+    <div class="comments-section hidden" data-post-id="{{ post.pk }}">
+        <div class="comment-list" data-post-id="{{ post.pk }}">
+            {% for comment in post.comments.all %}
+            <div class="comment-row" data-comment-id="{{ comment.pk }}">
+                <div><span class="username">{{ comment.author.username }}</span><span class="comment-content">{{ comment.content }}</span></div>
+                {% if comment.author == request.user %}
+                <div class="comment-row-actions">
+                    <button type="button" class="comment-edit-btn">수정</button>
+                    <button type="button" class="comment-delete-btn">삭제</button>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <form class="comment-form" data-post-id="{{ post.pk }}">
+            <input type="text" name="content" placeholder="댓글 달기...">
+            <button type="submit">게시</button>
+        </form>
+    </div>
+</div>
