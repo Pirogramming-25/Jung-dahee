@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: swidea-db
+    env_file:
+      - .env
+    volumes:
+      - swidea-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build: .
+    image: jdheeee/swidea-site:mysql
+    container_name: swidea-web
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./media:/app/media
+
+volumes:
+  swidea-mysql-data:
+    external: true
