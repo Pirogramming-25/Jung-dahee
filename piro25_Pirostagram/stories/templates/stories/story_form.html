@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}스토리 만들기{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h2>스토리 만들기</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.images }}
+        <p class="form-hint">여러 장의 사진을 한 번에 선택할 수 있습니다.</p>
+        {{ form.images.errors }}
+        <button type="submit">스토리 올리기</button>
+    </form>
+</div>
+{% endblock %}

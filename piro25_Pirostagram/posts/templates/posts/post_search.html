@@ -1,0 +1,23 @@
+{% extends 'search_base.html' %}
+{% block title %}게시글 검색{% endblock %}
+{% block content %}
+<h2 class="search-title">"{{ query }}"로 검색한 결과</h2>
+
+<div class="search-card-list">
+    {% for post in results %}
+    <div class="search-card search-card-post">
+        <img class="search-card-thumb" src="{{ post.image.url }}">
+        <a href="{% url 'accounts:profile' post.author.username %}" class="search-card-info">
+            <span class="search-card-name">{{ post.author.username }}</span>
+            <span class="search-card-sub">{{ post.description|default:"description" }}</span>
+        </a>
+        <div class="search-card-stats">
+            <span>♡ {{ post.like_count }}</span>
+            <span>💬 {{ post.comment_count }}</span>
+        </div>
+    </div>
+    {% empty %}
+        {% if query %}<p class="search-empty">검색 결과가 없습니다.</p>{% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
