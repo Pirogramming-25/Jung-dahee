@@ -28,4 +28,3 @@ services:
 
 volumes:
   swidea-mysql-data:
-    external: true
