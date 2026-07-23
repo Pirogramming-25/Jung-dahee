@@ -1,0 +1,7 @@
+Django>=5.2,<6
+python-dotenv>=1.1
+torch
+transformers>=4.57,<5
+accelerate
+huggingface-hub
+sentencepiece

@@ -1,0 +1,42 @@
+{% extends "my_gpt/base.html" %}
+{% load static %}
+{% block title %}감정 분석 - Django_GPT{% endblock %}
+{% block content %}
+<section class="feature-panel">
+  <h1>감정 분석</h1>
+  <p class="model-meta">사용 모델: <code>{{ model_id }}</code></p>
+  <p class="model-meta">입력 언어: 영어</p>
+  <p class="model-meta">로그인 없이도 사용할 수 있습니다. (비로그인 시 실행 기록은 저장되지 않습니다)</p>
+
+  <form id="run-form" class="run-form">
+    <textarea id="input-text" maxlength="1000" rows="6" placeholder="분석할 영어 문장을 입력하세요 (최대 1,000자)"></textarea>
+    <div class="form-row">
+      <button type="submit" id="run-button" class="primary-button">감정 분석 실행</button>
+      <span id="processing" class="processing hidden">처리 중...</span>
+    </div>
+  </form>
+
+  <div id="error-box" class="error-box hidden"></div>
+
+  <div id="result-box" class="result-box hidden">
+    <h2>결과</h2>
+    <p><strong>감정:</strong> <span id="result-label"></span></p>
+    <p><strong>신뢰도:</strong> <span id="result-score"></span></p>
+    <ul id="result-all-scores" class="score-list"></ul>
+  </div>
+
+  <div class="history-box">
+    <h2>최근 실행 기록 (최대 5개)</h2>
+    <ul id="history-list">
+      {% for h in histories %}
+      <li>{{ h.input_text|truncatechars:60 }} → {{ h.result_data.label }} ({{ h.result_data.score|floatformat:2 }})</li>
+      {% empty %}
+      <li class="empty-history">기록이 없습니다.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'my_gpt/js/sentiment.js' %}"></script>
+{% endblock %}
