@@ -1,0 +1,16 @@
+# model 파일 추가
+hand_landmarker.task
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 가상환경
+venv/
+.venv/
+env/
+.venv
+
+# OS
+.DS_Store
