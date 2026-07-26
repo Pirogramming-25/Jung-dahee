@@ -1,0 +1,12 @@
+pillow==12.0.0
+setuptools==80.9.0
+wheel==0.45.1
+asgiref==3.9.1
+Django==5.2.4
+sqlparse==0.5.3
+
+# OCR (영양 성분표 인식)
+opencv-python-headless==4.10.0.84
+numpy==1.26.4
+paddlepaddle==2.6.2
+paddleocr==2.9.1
