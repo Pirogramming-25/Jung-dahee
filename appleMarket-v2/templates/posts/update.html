@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>post_detail</title>
+<style>
+    main {
+        height: 100vh;
+        padding: 40px;
+    }
+
+    #nutrition_section {
+        border: 1px dashed #aaa;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        background-color: #fafafa;
+    }
+
+    #nutrition_preview {
+        display: none;
+        max-width: 200px;
+        margin-top: 10px;
+        border-radius: 6px;
+    }
+
+    #ocr_status {
+        display: none;
+        margin-left: 10px;
+        font-size: 0.9rem;
+        color: #555;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'posts:update' post.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{ form.title.label_tag }} {{ form.title }}</p>
+    <p>{{ form.content.label_tag }} {{ form.content }}</p>
+    <p>{{ form.region.label_tag }} {{ form.region }}</p>
+    <p>{{ form.user.label_tag }} {{ form.user }}</p>
+    <p>{{ form.price.label_tag }} {{ form.price }}</p>
+    <p>{{ form.photo.label_tag }} {{ form.photo }}</p>
+
+    <div id="nutrition_section">
+        <label for="nutrition_photo"><strong>영양 성분표 다시 인식하기 (선택)</strong></label><br>
+        <small>새 이미지를 업로드하면 아래 영양 정보 항목을 다시 자동으로 채워줍니다.</small><br>
+        <input type="file" id="nutrition_photo" accept="image/*" class="form-control mt-2" style="max-width: 300px;"
+            data-ocr-url="{% url 'posts:ocr_nutrition' %}">
+        <span id="ocr_status"></span>
+        <img id="nutrition_preview" src="" alt="영양성분표 미리보기">
+    </div>
+
+    <p>{{ form.calories.label_tag }} {{ form.calories }}</p>
+    <p>{{ form.carbohydrate.label_tag }} {{ form.carbohydrate }}</p>
+    <p>{{ form.protein.label_tag }} {{ form.protein }}</p>
+    <p>{{ form.fat.label_tag }} {{ form.fat }}</p>
+
+    {% for field in form %}
+        {% if field.name not in "title,content,region,user,price,photo,calories,carbohydrate,protein,fat" %}
+        <p>{{ field.label_tag }} {{ field }}{{ field.errors }}</p>
+        {% endif %}
+    {% endfor %}
+    {{ form.non_field_errors }}
+
+    <button class="btn btn-primary">수정 완료</button>
+</form>
+
+<script src="{% static 'posts/js/nutrition_ocr.js' %}"></script>
+{% endblock %}
